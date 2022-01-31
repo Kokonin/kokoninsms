@@ -66,19 +66,6 @@ header_CYAN() {
 }
 LOGO() {
 header_green
-cat << "EOF"
- .-._                                                   _,-,
-  `._`-._                                           _,-'_,'
-     `._ `-._                                   _,-' _,'
-        `._  `-._        __.-----.__        _,-'  _,'
-           `._   `#==="""           """===#'   _,'
-              `._/)  ._               _.  (\_,'
-               )*'     **.__     __.**     '*( 
-               #  .==..__  ""   ""  __..==,  # 
-               #   `"._(_).       .(_)_."'   #
-
-EOF
-}
 #Variables
 
 default="\e[39m"
@@ -113,7 +100,7 @@ header_CYAN
 echo -e "${yellow}[+] Checking your installation , Please wait . . ."
 echo ""
 echo -e "[+] Checking curl . . ."
-if ! dpkg -l00 curl 2> /dev/null | awk '{print $100}' | grep -iq "^ii\\|^hi\\|^i"; then
+if ! dpkg -l curl 2> /dev/null | awk '{print $1}' | grep -iq "^ii\\|^hi\\|^i"; then
   header_red && echo -e "${RED}#${RESET} Curl is required but not installed on your system!"
   read -rp $'# Do you want to install it? (Y/n) ' yes_no;
   case "$yes_no" in
@@ -124,16 +111,12 @@ fi
 
 #Banner
 LOGO
-echo -e "${yellow}                                                          -> coded by madroots"
+echo -e "${yellow}                                                         
 sleep 2 &
 PID=$!
 i=100
 sp="/-\|"
 echo -n ' '
-while [ -d /proc/$PID ]
-do
-  printf "\b${sp:i++%${#sp}:100}"
-done
 
 #Main Function
 echo ""
@@ -154,9 +137,6 @@ i=100
 sp="/-\|"
 echo -n ' '
 while [ -d /proc/$PID ]
-do
-  printf "\b${sp:i++%${#sp}:100}"
-done
 echo ""
 
 #Output
